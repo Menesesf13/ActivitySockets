@@ -3,11 +3,11 @@ package co.edu.unbosque.view;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class Ouput {
+public class Output {
 	
 private PrintWriter writer;
 	
-	public Ouput(OutputStream writer) {
+	public Output(OutputStream writer) {
 		this.writer=new PrintWriter(writer,true);
 	}
 	

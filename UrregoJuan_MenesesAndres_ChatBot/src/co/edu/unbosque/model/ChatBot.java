@@ -21,9 +21,7 @@ private HashMap<String, String> lresponse;
 			try {
 				String num=Double.toString(generateNum(question));
 				return num;
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+			}catch (Exception e) {}
 		}
 		else {
 			String compile=question.trim().toLowerCase().replaceAll("[^a-z]", "");
