@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import co.edu.unbosque.view.Input;
-import co.edu.unbosque.view.Ouput;
+import co.edu.unbosque.view.Output;
+import co.edu.unbosque.view.Output;
 
 public class Client {
 	
@@ -13,13 +14,13 @@ public class Client {
 	
 	private Socket cs;
 	private Input inServer,inClient;
-	private Ouput out;
+	private Output out;
 	
 	public Client() {
 		try {
 			cs = new Socket(HOST, PORT);
 		}catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Error");
 			
 		}
 		
@@ -28,38 +29,28 @@ public class Client {
 	public void initClient() {
 		try {
 			inServer = new Input(cs.getInputStream());
-			out = new Ouput(cs.getOutputStream());
+			out = new Output(cs.getOutputStream());
 			inClient = new Input(System.in);
-			String message, reponse;
+			String message, response;
+			Output.showInformation("***BOTINFO***\nBienvenido a BotInfo un programa que responde preguntas y resuelve operaciones simples:\n"
+		               +"Para que el programa calcule solo escriba la operación ejemplo: 2+2/(2*5) de otra manera no lo respondera.\n"
+		               +"Para terminar el programa ingrese salir.\n");
 			do {
 				out.printWithoutJump("Mensaje a enviar al servidor: ");
 				message = inClient.readString();
 				out.sendPrint(message);
-				reponse = inServer.readString();
-				out.printWithoutJump("Respuesta del servidor: "+ reponse);
+				response = inServer.readString();
+				out.printWithoutJump("Respuesta del servidor: "+ response);
 				
-			}while(!message.equalsIgnoreCase("Salir"));
+			}while(!response.equalsIgnoreCase("Gracias por utilizar el programa :D"));
 			inServer.getIn().close();
 			out.getWriter().close();
 			inClient.getIn().close();
 			cs.close();
 		
 		}catch(IOException e) {
-			e.printStackTrace();
+			System.err.println("Error");
 		}
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

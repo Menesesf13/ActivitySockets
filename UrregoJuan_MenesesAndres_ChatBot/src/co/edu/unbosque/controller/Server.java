@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import co.edu.unbosque.model.ChatBot;
 import co.edu.unbosque.view.Input;
-import co.edu.unbosque.view.Ouput;
+import co.edu.unbosque.view.Output;
 
 public class Server {
 	
@@ -15,7 +15,7 @@ public class Server {
 	private ServerSocket ss;
 	private Socket cs;
 	private Input in;
-	private Ouput out;
+	private Output out;
 	private ChatBot bot;
 	
 	public Server() {
@@ -23,23 +23,23 @@ public class Server {
 			bot = new ChatBot();
 			ss = new ServerSocket(PORT);
 		}catch(IOException e) {
-			e.printStackTrace();
+			System.err.println("Error");
 		}
 	}
 	
 	public void initServer() {
 		try {
-			Ouput.showInformation("Servidor en linea. Esperando conexion...");
+			Output.showInformation("Servidor en linea. Esperando conexion...");
 			cs = ss.accept();
 			in = new Input(cs.getInputStream());
-			out = new Ouput(cs.getOutputStream());
+			out = new Output(cs.getOutputStream());
 			String message, response;
 			while((message = in.readString())!=null) {
 				response = bot.generateResponse(message);
 				out.printWithJump("Mensaje del cliente: "+ message);
 				out.printWithJump("Respuesta del bot: " +response);
 				out.sendPrint(response);
-				if(message.equalsIgnoreCase("Salir")) {
+				if(response.equalsIgnoreCase("Gracias por utilizar el programa :D")) {
 					break;
 				}
 			}
@@ -49,7 +49,7 @@ public class Server {
 			ss.close();
 			
 		}catch(IOException e) {
-			e.printStackTrace();
+			System.err.println("Error");
 		}
 	}
 
