@@ -40,7 +40,7 @@ public class Client {
 				message = inClient.readString();
 				out.sendPrint(message);
 				response = inServer.readString();
-				out.printWithoutJump("Respuesta del servidor: "+ response);
+				out.printWithJump("Respuesta del servidor: "+ response);
 				
 			}while(!response.equalsIgnoreCase("Gracias por utilizar el programa :D"));
 			inServer.getIn().close();
